@@ -1,0 +1,96 @@
+<Window x:Class="OxygenFrame.Views.ControlCenterWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="OxygenFrame" Width="1040" Height="760" MinWidth="850" MinHeight="650"
+ WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize"
+ Background="#FF11151C" Foreground="#FFF4F6FA" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
+ <Window.Resources>
+  <Style TargetType="TextBlock"><Setter Property="Foreground" Value="#FFF4F6FA"/></Style>
+  <Style TargetType="Button"><Setter Property="Foreground" Value="#FFF4F6FA"/><Setter Property="Background" Value="#FF303846"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="14,10"/><Setter Property="Cursor" Value="Hand"/><Setter Property="FontSize" Value="13"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border Background="{TemplateBinding Background}" CornerRadius="11" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></ControlTemplate></Setter.Value></Setter></Style>
+  <Style TargetType="CheckBox"><Setter Property="Foreground" Value="#FFE7EBF2"/><Setter Property="Margin" Value="0,7,0,7"/><Setter Property="FontSize" Value="13"/></Style>
+  <Style TargetType="Slider"><Setter Property="Margin" Value="0,8,0,4"/></Style>
+  <Style TargetType="ComboBox"><Setter Property="Padding" Value="8"/><Setter Property="Background" Value="#FF303846"/><Setter Property="Foreground" Value="#FF15191F"/></Style>
+  <Style x:Key="Card" TargetType="Border"><Setter Property="Background" Value="#FF202631"/><Setter Property="CornerRadius" Value="18"/><Setter Property="Padding" Value="20"/><Setter Property="Margin" Value="0,0,14,14"/></Style>
+  <Style x:Key="Eyebrow" TargetType="TextBlock"><Setter Property="Foreground" Value="#FFB9F36B"/><Setter Property="FontSize" Value="11"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Margin" Value="0,0,0,12"/></Style>
+  <Style x:Key="Muted" TargetType="TextBlock"><Setter Property="Foreground" Value="#FF9AA4B4"/><Setter Property="FontSize" Value="12"/></Style>
+ </Window.Resources>
+ <Grid>
+  <Grid.RowDefinitions><RowDefinition Height="64"/><RowDefinition Height="*"/><RowDefinition Height="34"/></Grid.RowDefinitions>
+  <Border Grid.Row="0" Background="#FF191E27" Padding="22,0">
+   <DockPanel LastChildFill="True" VerticalAlignment="Center">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+     <Border Width="32" Height="32" CornerRadius="10" Background="#FFB9F36B"><TextBlock Text="O" Foreground="#FF15191F" FontSize="21" FontWeight="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+     <StackPanel Margin="11,0,0,0" VerticalAlignment="Center"><TextBlock Text="OXYGENFRAME" FontSize="15" FontWeight="Bold"/><TextBlock Text="DESKTOP PHOTO WIDGET" FontSize="9" Foreground="#FF9AA4B4" Margin="0,2,0,0"/></StackPanel>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+     <Button Content="—" Width="42" Padding="8,7" Margin="0,0,8,0" Click="Minimize_Click"/><Button Content="✕" Width="42" Padding="8,7" Click="Close_Click"/>
+    </StackPanel>
+   </DockPanel>
+  </Border>
+  <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+   <StackPanel Margin="28,24,14,18">
+    <TextBlock Text="YOUR DESKTOP, REIMAGINED." Foreground="#FFB9F36B" FontSize="11" FontWeight="Bold"/>
+    <TextBlock Text="A little frame. A lot of personality." FontSize="29" FontWeight="SemiBold" Margin="0,7,0,5"/>
+    <TextBlock Text="Keep your favourite photos close — without a complicated setup." Foreground="#FF9AA4B4" FontSize="13" Margin="0,0,0,22"/>
+    <Grid>
+     <Grid.ColumnDefinitions><ColumnDefinition Width="1.12*"/><ColumnDefinition Width="0.88*"/></Grid.ColumnDefinitions>
+     <StackPanel Grid.Column="0">
+      <Border Style="{StaticResource Card}">
+       <StackPanel>
+        <TextBlock Text="01  PHOTO SOURCE" Style="{StaticResource Eyebrow}"/>
+        <TextBlock x:Name="StatusText" Text="Choose a photo folder to begin" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+        <TextBlock x:Name="FolderText" Text="Your selected folder will appear here." Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,7,0,15"/>
+        <WrapPanel>
+         <Button Content="Choose photo folder" Click="Folder_Click" Background="#FFB9F36B" Foreground="#FF15191F" Margin="0,0,9,8"/>
+         <Button Content="Refresh folder" Click="Refresh_Click" Margin="0,0,9,8"/>
+         <Button Content="Previous" Click="Previous_Click" Margin="0,0,9,8"/>
+         <Button Content="Next photo" Click="Next_Click" Background="#FFB9F36B" Foreground="#FF15191F" Margin="0,0,9,8"/>
+         <Button x:Name="PauseButton" Content="Pause slideshow" Click="Pause_Click" Margin="0,0,9,8"/>
+        </WrapPanel>
+       </StackPanel>
+      </Border>
+      <Border Style="{StaticResource Card}">
+       <StackPanel>
+        <TextBlock Text="02  FRAME LOOK" Style="{StaticResource Eyebrow}"/>
+        <TextBlock Text="Rounded corners"/><TextBlock x:Name="CornerValue" Text="28 px" Style="{StaticResource Muted}" Margin="0,4,0,0"/><Slider x:Name="CornerSlider" Minimum="0" Maximum="80" Value="28" ValueChanged="CornerSlider_Changed"/>
+        <TextBlock Text="Border thickness" Margin="0,9,0,0"/><TextBlock x:Name="BorderValue" Text="2 px" Style="{StaticResource Muted}" Margin="0,4,0,0"/><Slider x:Name="BorderSlider" Minimum="0" Maximum="12" Value="2" ValueChanged="BorderSlider_Changed"/>
+        <TextBlock Text="Image fit" Margin="0,9,0,5"/><ComboBox x:Name="FitCombo" SelectedIndex="0" SelectionChanged="FitCombo_Changed"><ComboBoxItem Content="UniformToFill"/><ComboBoxItem Content="Uniform"/><ComboBoxItem Content="Fill"/></ComboBox>
+        <TextBlock Text="Border style" Margin="0,12,0,5"/><ComboBox x:Name="StrokeCombo" SelectedIndex="0" SelectionChanged="StrokeCombo_Changed"><ComboBoxItem Content="Solid"/><ComboBoxItem Content="Dashed"/><ComboBoxItem Content="Dotted"/><ComboBoxItem Content="Double-Inline"/></ComboBox>
+       </StackPanel>
+      </Border>
+     </StackPanel>
+     <StackPanel Grid.Column="1">
+      <Border Style="{StaticResource Card}">
+       <StackPanel>
+        <TextBlock Text="03  SLIDESHOW" Style="{StaticResource Eyebrow}"/>
+        <TextBlock Text="Photo change interval"/><TextBlock x:Name="IntervalValue" Text="10 seconds" Style="{StaticResource Muted}" Margin="0,4,0,0"/><Slider x:Name="IntervalSlider" Minimum="2" Maximum="120" Value="10" ValueChanged="IntervalSlider_Changed"/>
+        <TextBlock Text="Frame opacity" Margin="0,10,0,0"/><TextBlock x:Name="WidgetOpacityValue" Text="100%" Style="{StaticResource Muted}" Margin="0,4,0,0"/><Slider x:Name="WidgetOpacitySlider" Minimum="20" Maximum="100" Value="100" ValueChanged="WidgetOpacity_Changed"/>
+        <CheckBox x:Name="CycleCheck" Content="Automatically rotate photos" IsChecked="True" Checked="Behavior_Changed" Unchecked="Behavior_Changed"/>
+        <CheckBox x:Name="PauseHoverCheck" Content="Pause while hovering" Checked="Behavior_Changed" Unchecked="Behavior_Changed"/>
+        <CheckBox x:Name="FilenameCheck" Content="Show photo filename" Checked="Behavior_Changed" Unchecked="Behavior_Changed"/>
+        <CheckBox x:Name="TopmostCheck" Content="Keep frame above windows" Checked="Behavior_Changed" Unchecked="Behavior_Changed"/>
+       </StackPanel>
+      </Border>
+      <Border Style="{StaticResource Card}">
+       <StackPanel>
+        <TextBlock Text="04  FINISHING TOUCHES" Style="{StaticResource Eyebrow}"/>
+        <CheckBox x:Name="BorderCheck" Content="Show accent border" IsChecked="True" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="ShadowCheck" Content="Soft floating shadow" IsChecked="True" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="NeonCheck" Content="Neon glow" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="PolaroidCheck" Content="Polaroid photo style" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="GlassCheck" Content="Dark glass frame" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="HoverCheck" Content="Gentle hover animation" IsChecked="True" Checked="Effects_Changed" Unchecked="Effects_Changed"/>
+        <CheckBox x:Name="ShuffleCheck" Content="Shuffle photo order" Checked="AdvancedBehavior_Changed" Unchecked="AdvancedBehavior_Changed"/>
+        <CheckBox x:Name="SubfoldersCheck" Content="Include subfolders" Checked="AdvancedBehavior_Changed" Unchecked="AdvancedBehavior_Changed"/>
+        <TextBlock Text="Shadow softness" Margin="0,9,0,0"/><Slider x:Name="BlurSlider" Minimum="0" Maximum="100" Value="24" ValueChanged="Lighting_Changed"/>
+        <TextBlock Text="Shadow strength" Margin="0,5,0,0"/><Slider x:Name="OpacitySlider" Minimum="0" Maximum="1" Value=".45" ValueChanged="Lighting_Changed"/>
+        <TextBlock Text="Shadow direction" Margin="0,5,0,0"/><Slider x:Name="DirectionSlider" Minimum="0" Maximum="360" Value="315" ValueChanged="Lighting_Changed"/>
+       </StackPanel>
+      </Border>
+     </StackPanel>
+    </Grid>
+   </StackPanel>
+  </ScrollViewer>
+  <Border Grid.Row="2" Background="#FF191E27" Padding="22,0"><DockPanel VerticalAlignment="Center"><TextBlock Text="OXYGENFRAME  •  SETTINGS SAVE AUTOMATICALLY" Foreground="#FF8792A3" FontSize="10"/><TextBlock Text="ESC CLOSE  •  N NEXT  •  P PREVIOUS" Foreground="#FF8792A3" FontSize="10" HorizontalAlignment="Right"/></DockPanel></Border>
+ </Grid>
+</Window>

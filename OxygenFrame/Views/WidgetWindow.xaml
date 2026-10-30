@@ -1,0 +1,26 @@
+<Window x:Class="OxygenFrame.Views.WidgetWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="OxygenFrame Widget" Width="360" Height="260" Left="80" Top="100"
+ WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+ ShowInTaskbar="False" ResizeMode="NoResize" Topmost="False"
+ Loaded="Window_Loaded" Closing="Window_Closing" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave">
+ <Grid x:Name="Root" Background="Transparent" MouseMove="Root_MouseMove" MouseLeftButtonDown="Root_MouseLeftButtonDown">
+  <Border x:Name="ShadowBorder" CornerRadius="28" Background="#FF171B22" Padding="2">
+   <Border.Effect><DropShadowEffect x:Name="DropShadow" BlurRadius="24" ShadowDepth="8" Opacity="0.45" Color="Black"/></Border.Effect>
+   <Border x:Name="Frame" CornerRadius="26" BorderThickness="2" BorderBrush="#FFB9F36B" Background="#FF20242C" ClipToBounds="True">
+    <Grid x:Name="ImageHost">
+     <Image x:Name="ImageA" Stretch="UniformToFill" Opacity="1" SnapsToDevicePixels="True"/>
+     <Image x:Name="ImageB" Stretch="UniformToFill" Opacity="0" SnapsToDevicePixels="True"/>
+     <Border x:Name="EmptyState" Background="#CC171B22" Visibility="Collapsed">
+      <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+       <TextBlock Text="OXYGEN FRAME" Foreground="#FFB9F36B" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+       <TextBlock Text="Choose a photo folder in Control Center" Foreground="White" Margin="0,8,0,0" FontSize="12"/>
+      </StackPanel>
+     </Border>
+     <TextBlock x:Name="FileLabel" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="14" Foreground="White" FontSize="11" Background="#88000000" Padding="6,3" Visibility="Collapsed"/>
+    </Grid>
+   </Border>
+  </Border>
+ </Grid>
+</Window>
